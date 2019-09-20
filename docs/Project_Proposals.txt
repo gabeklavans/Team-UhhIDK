@@ -1,5 +1,14 @@
 Project Idea 1
 ==============
 
+My Daily Footprint
+
+This web app will help you track your daily greenhouse gas emissions. You can input information about yourself and your daily routine, such as where you live, what you ate that day, what type of transportation you used, etc. Then, using an API (such as the Brighter Planet Climate Data API or another similar one) that has data sets about the emissions caused by food, transportation, and other life choices, it will output your greenhouse gas emissions for that day. It will suggest ways to reduce your emissions that day to lower your environmental footprint and make the world a little bit greener. It will make these suggestions with another API that offers resources in your area that can help you make more sustainable choices (such as the WiserEarth API).
+
+
 Project Idea 2
 ==============
+
+Rise!
+
+This web app will help you start your day by using data from a weather API and your calendar to tell you what you need to pack for your day (umbrella, jacket, food, etc). Also based on the weather and how busy your calendar is that day, it will suggest an appropriate song/playlist from Spotify. It can also offer other suggestions of ways to make your day easier, such as how to theme your outfit, give a motivational message, or send your significant other a good morning text. 
