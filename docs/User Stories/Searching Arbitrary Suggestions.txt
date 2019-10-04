@@ -1,0 +1,5 @@
+Searching Arbitrary Suggestions API
+
+As a logged in user, I want to be able to search for ways to be more sustainable that are not based on my data. A user may not want to enter their data for the day, but still want to find out ways to live a sustainable life. The user may be looking for broad suggestions, or suggestions based on something other than their own data. This story starts with the “Logging in” story. Once a user has successfully entered their account, they can enter a keyword or phrase into a search bar. For example, they can search for a restaurant, or a location, or really anything. Then, if the database contains something related to the keywords, it will return suggestions based on the words you searched. Examples of something that might be returned are places to drop off compost if you searched for a location, or an eco-friendly clothing websites if you searched for clothing. 
+
+If the database does not contain anything related to those words, it will return a message informing the user that there is no relevant data to their queries. Trying to search with an empty keyword will also result in an error.
