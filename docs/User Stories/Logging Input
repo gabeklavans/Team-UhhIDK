@@ -1,0 +1,4 @@
+Logging Input
+After, the logging in process, the user will see a guide menu which have multiple buttons that let the user to input their information about themselves and their daily routine, such as where you live, what you ate that day, what type of transportation you used. 
+For example, when users click a button like “input the the food you ate today.” The menu will move to more specific menu that let people could choose some kind of food, like vegetables, fruit, or beef. And the app will let the user give the amount of food they ate and after input all the food. The App will automatically give the heat that of these food and switch other input option.
+The logging input will give the user the option to input their each time when they logging, and after they loggingin, there will also be a button to lead the users reinout their daily heat consuming.
