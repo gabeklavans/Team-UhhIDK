@@ -1,4 +1,6 @@
 # I'm messing around with the MEAN stack in this folder 😬 - Gabe
 testapp/
 
+node_modules/
 *.vscode
+.env
