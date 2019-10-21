@@ -1,0 +1,7 @@
+We chose the MEAN (MongoDB, Express, Angular, Node.js) stack for this project.
+
+This stack simply seems to be the most popular choice right now. 
+MongoDB is an easy to use non-relational data base that offers a simple cloud-based solution (MongoDB Atlas).
+Express simplifies setting up the server and routing around the REST api calls.
+Angular is among the three most popular front-end libaries and I (Gabe) just like Google's style.
+Node.js allows us to code in JavaScript on the backend which allows for more fluid and less-ambiguous communication between front and back end devs. It also makes data exchange more analagous.
