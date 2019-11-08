@@ -1,0 +1,15 @@
+Happy path for logging in user story:
+
+- User goes onto the website
+- Enter username and password
+- entering the correct username and password will navigate you to your dashboard
+
+Things that can go wrong:
+
+Authorization failed: 
+- this means you entered your credentials wrong
+- Error will show on screen
+- Click “Forgot Password” button and go through steps to change it
+- After changing your password, begin log in process again. 
+
+- Failed authorization could also mean you do not have an account, so you can click “Create Account” button
