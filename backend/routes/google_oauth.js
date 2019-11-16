@@ -37,16 +37,15 @@ router.get("/", (req, res) => {
             },
             headers:
             {
-                Connection: 'keep-alive',
-                Host: 'oauth2.googleapis.com',
-                Accept: '*/*'
-            }
+                Host: 'oauth2.googleapis.com'
+            },
+            json: true
         };
 
         rp(options)
-            .then((error, response, body) => {
-                //console.log(body);
-                res.send(`It worked, code is ${body} ${response}`);
+            .then(response => {
+                res.send(`Access token retrieved`);
+                console.log(response);
             })
             .catch(err => {
                 console.error(err);
