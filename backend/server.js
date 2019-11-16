@@ -12,28 +12,35 @@ const app = express();
 /* MiddleWare */
 app.use(cors());
 app.use(express.json());
+// testing for url calls
+app.use(function (req, res, next) {
+    console.log('Url for is: ' + req.url);
+    next(); // make sure we go to the next routes and don't stop here
+});
 
 /* Routing */
-const nrelRoutes = require('./routes/nrel_api');
+const nrelRoute = require('./routes/nrel_api');
+const googRoute = require('./routes/google_oauth');
 
-app.use('/nrel', nrelRoutes);
+app.use('/nrel', nrelRoute);
+app.use('/google_oauth', googRoute);
 
 // Error handling and catch-all route 
-app.use((req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
-    next(error);
-});
+// app.use((req, res, next) => {
+//     const error = new Error('Not found');
+//     error.status = 404;
+//     next(error);
+// });
 
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-        error: {
-            status: error.status,
-            message: error.message
-        }
-    });
-});
+// app.use((error, req, res, next) => {
+//     res.status(error.status || 500);
+//     res.json({
+//         error: {
+//             status: error.status,
+//             message: error.message
+//         }
+//     });
+// });
 
 /* Port number for server */
 const port = process.env.PORT || 3001;
