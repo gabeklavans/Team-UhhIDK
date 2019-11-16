@@ -13,7 +13,7 @@ const app = express();
 
 /* MiddleWare */
 app.use(favicon('favicon.ico'));
-//app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 // logging URL calls
