@@ -2,6 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const favicon = require('serve-favicon');
+var path = require('path');
 
 // Using this for app config variables
 require('dotenv').config();
@@ -10,6 +12,7 @@ require('dotenv').config();
 const app = express();
 
 /* MiddleWare */
+app.use(favicon('favicon.ico'));
 app.use(cors());
 app.use(express.json());
 // testing for url calls

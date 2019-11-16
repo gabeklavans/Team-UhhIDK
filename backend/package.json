@@ -29,6 +29,7 @@
     "googleapis": "^45.0.0",
     "mongoose": "^5.7.5",
     "request": "^2.88.0",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.5",
+    "serve-favicon": "^2.5.0"
   }
 }
