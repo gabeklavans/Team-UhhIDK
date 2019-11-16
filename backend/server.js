@@ -13,11 +13,12 @@ const app = express();
 
 /* MiddleWare */
 app.use(favicon('favicon.ico'));
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
-// testing for url calls
+
+// logging URL calls
 app.use(function (req, res, next) {
-    console.log('Url for is: ' + req.url);
+    console.log('Called URL: ' + req.url);
     next(); // make sure we go to the next routes and don't stop here
 });
 

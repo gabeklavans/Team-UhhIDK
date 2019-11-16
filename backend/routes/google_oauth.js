@@ -14,12 +14,14 @@ require("dotenv").config();
 // generate a url that asks permissions for Google Calendar scope
 const scopes = ["https://www.googleapis.com/auth/calendar", "https://mail.google.com/"];
 
-router.get("/", (req, res, next) => {
+router.get("/", (req, res) => {
     if (req.query.code) {
         // if the access code is returned,
         // grab the user's data and initialize the session
         let code = req.query.code
         // exchange code for tokens
+        console.log(code);
+        res.send(`It worked, code is ${code}`);
     } else {
         // if this is called without access code,
         // start the authentication process
