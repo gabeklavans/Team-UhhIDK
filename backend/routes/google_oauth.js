@@ -76,7 +76,7 @@ router.get("/", (req, res) => {
                         let ret = {
                             name: response.names[0].displayNameLastFirst,
                             email: response.emailAddresses[0].value
-                        }
+                        };
                         res.json(ret);
                     })
                     .catch(err => {
