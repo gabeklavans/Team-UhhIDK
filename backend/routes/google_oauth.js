@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const rp = require("request-promise");
 
-const {google} = require('googleapis');
+// Using this for app config variables
+require('dotenv').config();
+
+const { google } = require('googleapis');
 const oAuth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
@@ -18,10 +22,35 @@ router.get("/", (req, res) => {
     if (req.query.code) {
         // if the access code is returned,
         // grab the user's data and initialize the session
-        let code = req.query.code
+        let code = req.query.code;
         // exchange code for tokens
-        console.log(code);
-        res.send(`It worked, code is ${code}`);
+        var options = {
+            method: 'POST',
+            url: 'https://oauth2.googleapis.com/token',
+            qs:
+            {
+                code: `${code}`,
+                client_id: `${process.env.GOOGLE_CLIENT_ID}`,
+                client_secret: `${process.env.GOOGLE_CLIENT_SECRET}`,
+                redirect_uri: `${process.env.GOOGLE_REDIRECT_URL}`,
+                grant_type: 'authorization_code'
+            },
+            headers:
+            {
+                Host: 'oauth2.googleapis.com'
+            },
+            json: true
+        };
+
+        rp(options)
+            .then(response => {
+                res.send(`Access token retrieved`);
+                console.log(response);
+            })
+            .catch(err => {
+                console.error(err);
+                res.json(err);
+            });
     } else {
         // if this is called without access code,
         // start the authentication process
