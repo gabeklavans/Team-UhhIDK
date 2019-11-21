@@ -16,23 +16,29 @@ const oAuth2Client = new google.auth.OAuth2(
 require("dotenv").config();
 
 // generate a url that asks permissions for Google Calendar scope
-const scopes = ["https://www.googleapis.com/auth/calendar", "https://mail.google.com/"];
+const scopes = [
+    'profile',
+    'email',
+    'https://www.googleapis.com/auth/calendar',
+    'https://mail.google.com/'
+];
 
 router.get("/", (req, res) => {
     if (req.query.code) {
         // if the access code is returned,
         // grab the user's data and initialize the session
         let code = req.query.code;
+
         // exchange code for tokens
-        var options = {
+        let options = {
             method: 'POST',
             url: 'https://oauth2.googleapis.com/token',
             qs:
             {
-                code: `${code}`,
-                client_id: `${process.env.GOOGLE_CLIENT_ID}`,
-                client_secret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-                redirect_uri: `${process.env.GOOGLE_REDIRECT_URL}`,
+                code: code,
+                client_id: process.env.GOOGLE_CLIENT_ID,
+                client_secret: process.env.GOOGLE_CLIENT_SECRET,
+                redirect_uri: process.env.GOOGLE_REDIRECT_URL,
                 grant_type: 'authorization_code'
             },
             headers:
@@ -42,14 +48,45 @@ router.get("/", (req, res) => {
             json: true
         };
 
+        // send request
         rp(options)
             .then(response => {
-                res.send(`Access token retrieved`);
-                console.log(response);
+                // Access token and refresh token was successfully retrieved
+
+                // TODO: handle token NOT being returned
+                let accessToken = response.access_token;
+                let refreshToken = response.refresh_token;
+
+                let options = {
+                    method: 'GET',
+                    url: 'https://people.googleapis.com/v1/people/me',
+                    qs: { personFields: 'names,emailAddresses' },
+                    headers:
+                    {
+                        Host: 'people.googleapis.com',
+                        Authorization: `Bearer ${accessToken}`
+                    },
+                    json: true
+                };
+
+                rp(options)
+                    .then(response => {
+                        // retrieved profile info
+                        let ret = {
+                            name: response.names[0].displayNameLastFirst,
+                            email: response.emailAddresses[0].value
+                        }
+                        res.json(ret);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+
+                // res.redirect(process.env.FRONT_END_URL);
             })
             .catch(err => {
-                console.error(err);
-                res.json(err);
+                //console.error(err);
+                res.send(err);
             });
     } else {
         // if this is called without access code,
