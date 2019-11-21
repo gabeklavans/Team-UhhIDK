@@ -47,18 +47,10 @@ app.use('/google_oauth', googRoute);
 // });
 
 /* Port number for server */
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8420;
 
 /* Connection to MongoDB */
 // const uri = process.env.DB_URI;
-
-// // View engine
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-// app.engine('html', require('ejs').renderFile);
-
-
-
 
 app.listen(port, () => {
     console.log(`Listening on ${port}`);
