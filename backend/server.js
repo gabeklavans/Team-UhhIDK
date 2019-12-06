@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/* jshint esversion: 6 */
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
