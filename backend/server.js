@@ -25,9 +25,11 @@ app.use(function (req, res, next) {
 /* Routing */
 const nrelRoute = require('./routes/nrel_api');
 const googRoute = require('./routes/google_oauth');
+const coolRoute = require('./routes/coolclimate_api');
 
 app.use('/nrel', nrelRoute);
 app.use('/google_oauth', googRoute);
+app.use('/coolclimate', coolRoute);
 
 // Error handling and catch-all route 
 // app.use((req, res, next) => {
