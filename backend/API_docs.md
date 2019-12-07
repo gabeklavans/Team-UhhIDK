@@ -1,0 +1,6 @@
+| Url                                                                               | Usage                                                                                         |
+| -------------                                                                     | -------------:                                                                                |
+| http://localhost:8420/nrel                                                        | Just returns a message                                                                        |
+| http://localhost:8420/nrel/{address}                                              | Returns the electric company that services this address                                       |
+| http://localhost:8420/google_oauth                                                | Redirects the page to the Google sign in                                                      |
+| http://localhost:8420/coolclimate?miles={miles/year}&mpg={mpg}&fuelType={type}    | Each parameter is optional (there are defaults). Fuel type is 0 for gasoline and 1 for diesel |
