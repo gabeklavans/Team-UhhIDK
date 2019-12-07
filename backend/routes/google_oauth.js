@@ -81,22 +81,25 @@ router.get("/", (req, res) => {
                                 name: response.names[0].displayNameLastFirst,
                                 email: response.emailAddresses[0].value
                             };
-                            res.json(ret);
-                            // req.session.name = response.names[0].displayNameLastFirst;
-                            // req.session.email = response.emailAddresses[0].value;
+                            req.session.name = response.names[0].displayNameLastFirst;
+                            req.session.email = response.emailAddresses[0].value;
+                            res.json({
+                                name: req.session.name,
+                                email: req.session.email
+                            });
                             // res.redirect(process.env.FRONT_END_URL);
                         })
                         .catch(err => {
                             // TODO: More descriptive error
                             console.error(err);
-                            res.send(err);
+                            //res.send(err);
                         });
                 }
             })
             .catch(err => {
                 // TODO: More descriptive error
                 console.error(err);
-                res.send(err);
+                //res.send(err);
             });
     } else {
         // if this is called without access code,
