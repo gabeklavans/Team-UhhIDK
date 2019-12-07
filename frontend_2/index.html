@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>My Yearly Footprint</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="style.css" rel="stylesheet">
+  <style>
+
+  .navbar-default {
+    background-color: #357CB9;
+    border-color: #E7E7E7;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+  }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+  
+  <nav class="navbar navbar-expand-lg navbar-default static-top" >
+    <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;">
+      <a class="navbar-brand" href="#" style= "color: white">My Yearly Footprint 
+        <img src="green_earth.png" alt="earth" style="width:55px;height:55px;">
+      </a>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <!-- <li class="nav-item active">
+            <a class="nav-link" href="#" style="color:white">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: white; font-size: 20px;">My Profile</a>
+            <!-- maybe a link to a profile page or something? -->
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container-fluid" style="padding-left: 100px; padding-right: 60px;">
+    <div class="row" style="padding-bottom: 50px;">
+      <div class="col-lg-12 text-left">
+        <h1 class="mt-5">Welcome Back Friend!</h1>
+        <!-- replace friend with user's name -->
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col" style="padding-right: 70px;">
+        <p>
+          Enter your information below to calculate how much greenhouse gas your car emitted this year:
+        </p>
+          
+
+      <form>
+        <div class="form-group">
+          <label for="validationCustom05">Zipcode</label>
+          <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+          <div class="invalid-feedback">
+            Please provide a valid zip.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Household Income</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option selected>Average</option>
+            <option>Less than $10,000</option>
+            <option>$10,000 to $19,000</option>
+            <option>$20,000 to $29,000</option>
+            <option>$30,000 to $39,000</option>
+            <option>$40,000 to $49,000</option>
+            <option>$50,000 to $59,000</option>
+            <option>$60,000 to $79,000</option>
+            <option>$80,000 to $99,000</option>
+            <option>$100,000 to $119,000</option>
+            <option>$120,000 or more</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Household Size</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option selected="">Average</option>
+            <option>1 person</option>
+            <option>2 people</option>
+            <option>3 people</option>
+            <option>4 people</option>
+            <option>5 or more people</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="validationCustom05">Number of miles your car traveled last year</label>
+          <input type="integer" class="form-control" id="validationCustom05" placeholder="0" required>
+          <div class="invalid-feedback">
+            Please provide a valid number.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="validationCustom05">Your vehicle's fuel efficiency in miles per gallon</label>
+          <input type="integer" class="form-control" id="validationCustom05" placeholder="0" required>
+          <div class="invalid-feedback">
+            Please provide a valid number.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Fuel type</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option selected>Select a fuel type</option>
+            <option>Gasoline</option>
+            <option>Diesel</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="padding-top: 20px;">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary" style="padding-left: 60px; padding-right: 60px; ">Submit</button>
+                  </div>
+          </div>
+
+      
+      
+      </form>
+      
+
+
+      </div>
+      <div class="col">
+        <div class="row">
+          <p>
+          Stats/Graph <br>
+
+          Here will be the output from submitting the form and a graph or some representation of your emissions from the database. Or maybe if a graph is too hard, just a total of all your emissions, and the years for which that occurred. Or like a little chart with years and emissions. Placeholder image below.
+          </p>
+
+          <img src="graph.png" alt="graph" style="max-width:70%;max-height:70%;">
+
+        
+        </div>
+
+        <div class="row" style="padding-top: 40px">
+          <p>
+        
+          Google Maps thing or whatever the next API is gonna be
+          </p>
+        </div>
+
+
+        
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
