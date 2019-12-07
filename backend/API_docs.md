@@ -1,3 +1,5 @@
+### Variable stuff is in **{braces}**
+
 | Url                                                                               | Usage                                                                                         |
 | -------------                                                                     | -------------:                                                                                |
 | http://localhost:8420/nrel                                                        | Just returns a message                                                                        |
