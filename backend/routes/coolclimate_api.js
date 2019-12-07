@@ -29,7 +29,7 @@ router.get("/", (req, res, next) => {
             input_location: '02215',
             input_income: '1',
             input_size: '0',
-            input_footprint_transportation_miles1: miles,
+            // input_footprint_transportation_miles1: miles,
             input_footprint_transportation_mpg1: mpg,
             input_footprint_transportation_fuel1: fuelType
         },
@@ -47,19 +47,29 @@ router.get("/", (req, res, next) => {
         .then((response) => {
             xmlParser.parseStringPromise(response)
                 .then(json => {
-                    console.log('Sent coolclimate info to client');
-                    // Emissions are in metric tons of carbon dioxide equivalent (tCO2e)
-                    res.send({
-                        direct_emissions: json.response.result_motor_vehicles_direct[0],
-                        indirect_emissions: json.response.result_motor_vehicles_indirect[0]
-                    });
+                    if (!json.response.result_motor_vehicles_direct || !json.response.result_motor_vehicles_indirect) {
+                        let error = new Error('Issue retrieving carbon emission stats');
+                        error.status = 503;
+                        next(error);
+                    } else {
+                        console.log('Sent coolclimate info to client');
+                        // Emissions are in metric tons of carbon dioxide equivalent (tCO2e)
+                        res.send({
+                            direct_emissions: json.response.result_motor_vehicles_direct[0],
+                            indirect_emissions: json.response.result_motor_vehicles_indirect[0]
+                        });
+                    }
                 })
                 .catch(err => {
+                    // TODO: More descriptive error
                     console.error(err);
+                    res.send(err);
                 });
         })
         .catch(err => {
+            // TODO: More descriptive error
             console.error(err);
+            res.send(err);
         });
 
 });

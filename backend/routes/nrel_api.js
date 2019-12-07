@@ -7,9 +7,12 @@ const router = express.Router();
 require("dotenv").config();
 
 router.get("/", (req, res, next) => {
-    res.status(200).json({
-        message: "Handling GET req to nrel api"
-    });
+    // res.status(200).json({
+    //     message: "Handling GET req to nrel api"
+    // });
+    let error = new Error('Not found');
+    error.status = 404;
+    next(error);
 });
 
 router.get("/:address", (req, res) => {

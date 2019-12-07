@@ -44,15 +44,15 @@ app.use('/coolclimate', coolRoute);
 //     next(error);
 // });
 
-// app.use((error, req, res, next) => {
-//     res.status(error.status || 500);
-//     res.json({
-//         error: {
-//             status: error.status,
-//             message: error.message
-//         }
-//     });
-// });
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            status: error.status,
+            message: error.message
+        }
+    });
+});
 
 /* Port number for server */
 const port = process.env.PORT || 8420;
