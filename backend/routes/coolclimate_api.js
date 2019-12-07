@@ -19,6 +19,7 @@ router.get("/", (req, res, next) => {
     let mpg = req.query.mpg || 30;
     let fuelType = req.query.fuelType || 0;
 
+    // options for the request
     let options = {
         method: 'GET',
         url: 'https://apis.berkeley.edu/coolclimate/footprint-sandbox',
@@ -41,6 +42,7 @@ router.get("/", (req, res, next) => {
         }
     };
 
+    // send the promise-based request
     rp(options)
         .then((response) => {
             xmlParser.parseStringPromise(response)
