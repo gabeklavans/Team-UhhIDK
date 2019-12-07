@@ -39,6 +39,16 @@ app.use('/google_oauth', googRoute);
 app.use('/coolclimate', coolRoute);
 app.use('/db', databaseRoute);
 
+app.get('/', (req, res, next) => {
+    if (req.session.email) {
+        res.send(`Email in session: ${req.session.email}`);
+    } else {
+        let error = new Error('Not found');
+        error.status = 404;
+        next(error);
+    }
+});
+
 // Error handling and catch-all route 
 // app.use((req, res, next) => {
 //     const error = new Error('Not found');
