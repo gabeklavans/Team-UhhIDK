@@ -82,14 +82,15 @@ router.get("/", (req, res) => {
                                 email: response.emailAddresses[0].value
                             };
                             res.json(ret);
+                            // req.session.name = response.names[0].displayNameLastFirst;
+                            // req.session.email = response.emailAddresses[0].value;
+                            // res.redirect(process.env.FRONT_END_URL);
                         })
                         .catch(err => {
                             // TODO: More descriptive error
                             console.error(err);
                             res.send(err);
                         });
-
-                    // res.redirect(process.env.FRONT_END_URL);
                 }
             })
             .catch(err => {
