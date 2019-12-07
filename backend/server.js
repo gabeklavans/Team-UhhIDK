@@ -32,10 +32,12 @@ app.use(function (req, res, next) {
 const nrelRoute = require('./routes/nrel_api');
 const googRoute = require('./routes/google_oauth');
 const coolRoute = require('./routes/coolclimate_api');
+const databaseRoute = require('./routes/database');
 
 app.use('/nrel', nrelRoute);
 app.use('/google_oauth', googRoute);
 app.use('/coolclimate', coolRoute);
+app.use('/db', databaseRoute);
 
 // Error handling and catch-all route 
 // app.use((req, res, next) => {
