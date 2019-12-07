@@ -29,7 +29,7 @@ router.get("/", (req, res, next) => {
             input_location: '02215',
             input_income: '1',
             input_size: '0',
-            // input_footprint_transportation_miles1: miles,
+            input_footprint_transportation_miles1: miles,
             input_footprint_transportation_mpg1: mpg,
             input_footprint_transportation_fuel1: fuelType
         },
