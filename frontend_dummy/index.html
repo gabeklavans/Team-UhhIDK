@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      function makeReq() {
+        var settings = {
+          async: true,
+          crossDomain: true,
+          url:
+            "http://localhost:8420/nrel/" +
+            document.getElementById("input").value,
+          method: "GET",
+          headers: {
+            "User-Agent": "PostmanRuntime/7.18.0",
+            Accept: "*/*",
+            "Cache-Control": "no-cache",
+            "Postman-Token":
+              "0211073c-eff3-427a-b4db-79cbaab04bd0,32b70191-8947-48e4-8674-acec09f6082e",
+            Host: "localhost:3420",
+            "Accept-Encoding": "gzip, deflate",
+            Connection: "keep-alive",
+            "cache-control": "no-cache"
+          }
+        };
+        $.ajax(settings).done(function(response) {
+          console.log(`Response: ${response}`);
+          document.getElementById("responseBox").value = response;
+        });
+      }
+    </script>
+
+    <input type="text" id="input" />
+    <input
+      type="text"
+      value=" "
+      id="responseBox"
+      size="100"
+      autocomplete="off"
+    />
+    <button type="button" onclick="makeReq()">
+      Get electric company serving the GSU
+    </button>
+  </body>
+</html>
