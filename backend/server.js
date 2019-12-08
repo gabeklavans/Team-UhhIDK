@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const favicon = require('serve-favicon');
-var path = require('path');
 const session = require('express-session');
 
 // Using this for app config variables
@@ -70,12 +69,27 @@ app.use((error, req, res, next) => {
     });
 });
 
+/* =================================================== */
+/* Connection to Database */
+
+// Set up mongoose connection 
+var mongoDB = process.env.MONGO_ATLAS_URL;
+mongoose.connect(mongoDB, {useNewUrlParser: true});
+
+// Get the default connection
+var db = mongoose.connection;
+
+// Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// Reference: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+
+/* =================================================== */
+
 /* Port number for server */
 const port = process.env.PORT || 8420;
 
-/* Connection to MongoDB */
-// const uri = process.env.DB_URI;
-
+/* Spin up server */
 app.listen(port, () => {
     console.log(`Listening on ${port}`);
     console.log(`Address should be: http://localhost:${port}`);
