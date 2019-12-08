@@ -13,7 +13,11 @@ require('dotenv').config();
 const app = express();
 
 /* MiddleWare */
+
+// Fun favicon that no one will see :'(
 app.use(favicon('favicon.ico'));
+
+// Prevents cors errors
 app.use(cors());
 app.use(express.json());
 
