@@ -15,7 +15,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var Schema = mongoose.Schema;
 
 var UserDataSchema = new Schema ({
-	_id: String,
+	_id: Schema.Types.ObjectId,
 	email: String,
 	name: String,
 	direct_emissions: Number,
