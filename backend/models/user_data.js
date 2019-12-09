@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserDataSchema = new Schema ({
-	_id: Schema.Types.ObjectId,
+	_id: mongoose.Schema.Types.ObjectId,
 	email: String,
     name: String,
     // Stores a list of years mapped to the emssisions for that year
