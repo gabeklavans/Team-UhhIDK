@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const favicon = require('serve-favicon');
 const session = require('express-session');
+const cookieSession = require('cookie-session')
 
 // Using this for app config variables
 require('dotenv').config();
@@ -17,12 +18,34 @@ const app = express();
 app.use(favicon('favicon.ico'));
 
 // Prevents cors errors
-app.use(cors());
+// Enable CORS
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+//     next();
+//  });
+app.use(cors({
+    origin: true,
+    credentials: true,
+    preflightContinue: true
+}));
 app.use(express.json());
 
 // Session middleware
-app.use(session({
-    'secret': 'WordsFail'
+// app.use(session({
+//     'secret': 'WordsFail',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         secure: false
+//     }
+// }));
+
+app.use(cookieSession({
+    name: 'session',
+    secret: 'uh',
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
 // logging URL calls
@@ -74,7 +97,7 @@ app.use((error, req, res, next) => {
 
 // Set up mongoose connection 
 var mongoDB = process.env.MONGO_ATLAS_URL;
-mongoose.connect(mongoDB, {useNewUrlParser: true});
+mongoose.connect(mongoDB, { useNewUrlParser: true });
 
 // Get the default connection
 var db = mongoose.connection;

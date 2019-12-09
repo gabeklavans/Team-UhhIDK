@@ -18,4 +18,13 @@ router.get("/update", (req, res, next) => {
     next(error);
 });
 
+router.get("/read/name", (req, res, next) => {
+    console.log(req.session.email);
+    if (req.session.name) {
+        res.send({name: req.session.name});
+    } else {
+        res.send({name: 'friend'});
+    }
+});
+
 module.exports = router;

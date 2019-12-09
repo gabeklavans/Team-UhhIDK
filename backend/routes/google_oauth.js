@@ -83,11 +83,8 @@ router.get("/", (req, res) => {
                             };
                             req.session.name = response.names[0].displayNameLastFirst;
                             req.session.email = response.emailAddresses[0].value;
-                            res.json({
-                                name: req.session.name,
-                                email: req.session.email
-                            });
-                            // res.redirect(process.env.FRONT_END_URL);
+                            console.log(req.session.email);
+                            res.redirect(process.env.FRONT_END_URL);
                         })
                         .catch(err => {
                             // TODO: More descriptive error
