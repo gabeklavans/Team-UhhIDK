@@ -17,13 +17,7 @@ const app = express();
 // Fun favicon that no one will see :'(
 app.use(favicon('favicon.ico'));
 
-// Prevents cors errors
-// Enable CORS
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Credentials', 'true');
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-//     next();
-//  });
+// Prevents cors errors and allows cookies to flow
 app.use(cors({
     origin: true,
     credentials: true,
@@ -32,6 +26,8 @@ app.use(cors({
 app.use(express.json());
 
 // Session middleware
+
+// This uses express-sessions but we don't have an external store so its kinda werid
 // app.use(session({
 //     'secret': 'WordsFail',
 //     resave: false,
@@ -41,9 +37,17 @@ app.use(express.json());
 //     }
 // }));
 
+/**
+ * This supposedly doesn't need an external store
+ * It's probably not good practice (hence why express-session is more used)
+ * but I'm here for a good one not a long one
+ * ...
+ * Wait that expression doesn't really work here...
+ * Hehe EXPRESSion. Nice. 
+ */
 app.use(cookieSession({
     name: 'session',
-    secret: 'uh',
+    secret: 'WordsFail',
     // Cookie Options
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
