@@ -7,3 +7,5 @@ node_modules/
 
 client_secret*
 .DS_Store
+
+vendor/
