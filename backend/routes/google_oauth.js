@@ -59,8 +59,8 @@ router.get("/", (req, res) => {
                     next(error);
                 } else {// Access token and refresh token was successfully retrieved
 
-                    let accessToken = response.access_token;
-                    let refreshToken = response.refresh_token;
+                    req.session.accessToken = response.access_token;
+                    req.session.refresh_token = response.refresh_token;
 
                     let options = {
                         method: 'GET',
@@ -69,7 +69,7 @@ router.get("/", (req, res) => {
                         headers:
                         {
                             Host: 'people.googleapis.com',
-                            Authorization: `Bearer ${accessToken}`
+                            Authorization: `Bearer ${req.session.accessToken}`
                         },
                         json: true
                     };
