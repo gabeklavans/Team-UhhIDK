@@ -61,6 +61,12 @@ router.get("/", (req, res, next) => {
                         // Emissions are in metric tons of carbon dioxide equivalent (tCO2e)
                         req.session.direct_emissions = json.response.result_motor_vehicles_direct[0];
                         req.session.indirect_emissions = json.response.result_motor_vehicles_indirect[0];
+                        req.session.biking = JSON.parse(json.response.result_takeaction_pounds).ride_my_bike;
+                        console.log(`Saves from biking: ${req.session.biking}`);
+
+                        // Send client some data to update session
+                        res.send({success: "nice"});
+
                         UserData.updateOne({ email: req.session.email }, {
                             $set: {
                                 direct_emissions: req.session.direct_emissions,

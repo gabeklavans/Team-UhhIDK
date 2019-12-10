@@ -22,6 +22,7 @@
     }
   </style>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 </head>
 
 
@@ -172,6 +173,7 @@
             })
               .then(resp => resp.json())
               .then(res => {
+                location.reload()
               });
           };
         </script>
@@ -191,16 +193,76 @@
       </div>
       <div class="col">
         <div class="row">
-          <p>
-            Stats/Graph <br>
+          <h2>Carbon Usage</h2>
+          <p id="blurb">Here's your stats over the years! Direct emissions come from your tail pipe and indirect
+            emissions come from everything else, like manufacturing your car.</p>
+          <canvas style="height:40%; width:40%" id="chart"></canvas>
+          <script>
+            fetch('http://localhost:8420/session/emissions', {
+              method: 'GET',
+              credentials: 'include'
+            })
+              .then(resp => resp.json())
+              .then(res => {
+                let direct;
+                let indirect
 
-            Here will be the output from submitting the form and a graph or some representation of your emissions from
-            the database. Or maybe if a graph is too hard, just a total of all your emissions, and the years for which
-            that occurred. Or like a little chart with years and emissions. Placeholder image below.
-          </p>
+                if (res.error) {
+                  direct = 0;
+                  indirect = 0;
+                  document.getElementById("blurb").innerHTML = `You don't have any data logged... I suppose that's technically a good thing!`
+                } else {
+                  direct = res.direct;
+                  indirect = res.indirect;
+                }
 
-          <img src="graph.png" alt="graph" style="max-width:70%;max-height:70%;">
-
+                var ctx = document.getElementById('chart');
+                var myBarChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                    labels: ['2019'],
+                    datasets: [
+                      {
+                        label: 'Direct Emissions',
+                        data: [direct],
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                          'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                      },
+                      {
+                        label: 'Indirect Emissions',
+                        data: [indirect],
+                        backgroundColor: [
+                          'rgba(54, 162, 235, 0.2)'
+                        ],
+                        borderColor: [
+                          'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                      }
+                    ]
+                  },
+                  options: {
+                    scales: {
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true
+                        },
+                        stacked: true
+                      }],
+                      xAxes: [{
+                        stacked: true
+                      }]
+                    },
+                    responive: true
+                  }
+                });
+              });
+          </script>
 
         </div>
 
