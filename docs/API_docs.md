@@ -1,0 +1,16 @@
+## Variable stuff is in **{braces}**
+
+| Function                                                          | Url                                                                                                                                      | Usage                                                                                         |
+| :--------                                                         | :-------------                                                                                                                           | -------------:                                                                                |
+| Base NREL url                                                     | http://localhost:8420/nrel                                                                                                               | Just returns a test message                                                                        |
+| Get local elctric company from NREL                               | http://localhost:8420/nrel/{address}                                                                                                     | Address is space-separated street address                                       |
+| Sign in with Google OAuth 2.0                                     | http://localhost:8420/google_oauth                                                                                                       | Redirects the page to the Google sign in and starts a session for user upon successful authentication    |
+| Get carbon emissions from single car in a year using CoolClimate  | http://localhost:8420/coolclimate?miles={miles/year}&mpg={mpg}&fuelType={type}&zip={zipCode}&income={incomeType}&size={houseSizeType}    | Each parameter is optional (there are defaults). Fuel type is 0 for gasoline and 1 for diesel. Does not return anything excpet a `response.success` message for resolving Promise |
+| Get event information for next location-based single-calendar event in Google Calendar | http://localhost:8420/calendar | If Google Calendar events are present, will return the time needed to leave to arrive at event on time via biking from Gabe's dorm (610 Beacon St). Leave time returned as `response.leaveTime`
+| Get emissions info from session                                | http://localhost:8420/session/emissions                                                                                                            | Returns `response.direct` and `response.indirect` emissions, and `response.biking` reductions |
+| Get user name from session                      | http://localhost:8420/session/name                                                                                                          | Whoever logged in last will be returned, in the form `response.name` |
+
+### *All errors should be returned in the response as a JSON object named "error"*
+### *`response` is in place of whatver method/variable naming you use to retrieve the response of the API request*
+
+<!-- TODO: add default values -->

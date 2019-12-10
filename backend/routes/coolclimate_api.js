@@ -22,7 +22,8 @@ router.get("/", (req, res, next) => {
     let size = req.query.size || 0;
     let miles = req.query.miles || 1000;
     let mpg = req.query.mpg || 30;
-    let type = req.query.fuelType || 0;
+    // let type = req.query.fuelType || 0;
+    let type = 0; // I don't think we can handle diesel right now...
 
     // options for the request
     let options = {
