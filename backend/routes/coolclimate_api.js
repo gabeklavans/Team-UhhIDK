@@ -4,6 +4,8 @@ const rp = require("request-promise");
 const router = express.Router();
 const xml2js = require('xml2js');
 const xmlParser = new xml2js.Parser();
+const mongoose = require("mongoose");
+const UserData = require('../models/user_data');
 
 // Using this for app config variables
 require("dotenv").config();
@@ -15,9 +17,12 @@ require("dotenv").config();
  */
 router.get("/", (req, res, next) => {
     // Initialize the variables to pass to the api
+    let zip = req.query.zip || 02215;
+    let income = req.query.income || 1;
+    let size = req.query.size || 0;
     let miles = req.query.miles || 1000;
     let mpg = req.query.mpg || 30;
-    let fuelType = req.query.fuelType || 0;
+    let type = req.query.fuelType || 0;
 
     // options for the request
     let options = {
@@ -26,12 +31,12 @@ router.get("/", (req, res, next) => {
         qs:
         {
             input_location_mode: '1',
-            input_location: '02215',
-            input_income: '1',
-            input_size: '0',
+            input_location: zip,
+            input_income: income,
+            input_size: size,
             input_footprint_transportation_miles1: miles,
             input_footprint_transportation_mpg1: mpg,
-            input_footprint_transportation_fuel1: fuelType
+            input_footprint_transportation_fuel1: type
         },
         headers:
         {
@@ -52,12 +57,20 @@ router.get("/", (req, res, next) => {
                         error.status = 503;
                         next(error);
                     } else {
-                        console.log('Sent coolclimate info to client');
+                        // Write through to DB
                         // Emissions are in metric tons of carbon dioxide equivalent (tCO2e)
-                        res.send({
-                            direct_emissions: json.response.result_motor_vehicles_direct[0],
-                            indirect_emissions: json.response.result_motor_vehicles_indirect[0]
-                        });
+                        req.session.direct_emissions = json.response.result_motor_vehicles_direct[0];
+                        req.session.indirect_emissions = json.response.result_motor_vehicles_indirect[0];
+                        UserData.updateOne({ email: req.session.email }, {
+                            $set: {
+                                direct_emissions: req.session.direct_emissions,
+                                indirect_emissions: req.session.indirect_emissions
+                            }
+                        }).exec()
+                            .then(result => {
+                                console.log(`New emissions saved to DB`);
+                            })
+                            .catch(err => console.error(err));
                     }
                 })
                 .catch(err => {

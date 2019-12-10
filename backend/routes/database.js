@@ -5,6 +5,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const UserData = require('../models/user_data');
 
+/**
+ * These routes are mostly for testing and reference purposes
+ */
+
 // Using this for app config variables
 require("dotenv").config();
 
@@ -23,7 +27,6 @@ router.post("/create", (req, res, next) => {
                     _id: new mongoose.Types.ObjectId(),
                     email: req.query.email,
                     name: req.query.name,
-                    // Stores a list of years mapped to the emssisions for that year
                     direct_emissions: 0,
                     indirect_emissions: 0
                 });
@@ -53,6 +56,21 @@ router.get("/read/", (req, res, next) => {
         .catch(err => console.error(err));
 });
 
+router.get("/read/all", (req, res, next) => { 
+    UserData.find().exec()
+        .then(doc => {
+            if (doc) {
+                console.log(doc);
+                res.send(doc);
+            } else {
+                console.log(`User not found`);
+                res.send({msg: `User ${req.session.email} not found`});
+            }
+
+        })
+        .catch(err => console.error(err));
+});
+
 router.patch("/update/", (req, res, next) => {
     // Loop through every item in queries and add them to the update list
     let updateOperations = {};
@@ -66,15 +84,6 @@ router.patch("/update/", (req, res, next) => {
             res.send(result);
         })
         .catch(err => console.error(err));
-});
-
-router.get("/read/name", (req, res, next) => {
-    console.log(req.session.email);
-    if (req.session.name) {
-        res.send({ name: req.session.name });
-    } else {
-        res.send({ name: 'friend' });
-    }
 });
 
 module.exports = router;

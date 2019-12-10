@@ -22,8 +22,6 @@
     }
   </style>
 
-  <!-- Import AJAX support -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 
 
@@ -45,7 +43,9 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="http://localhost:8420/google_oauth" style="color: white; font-size: 20px;">Sign In <img class="rounded" src="http://pluspng.com/img-png/google-logo-png-open-2000.png" style="width:25px;height:25px; background-color: white;"></a>
+            <a class="nav-link" href="http://localhost:8420/google_oauth" style="color: white; font-size: 20px;">Sign In
+              <img class="rounded" src="http://pluspng.com/img-png/google-logo-png-open-2000.png"
+                style="width:25px;height:25px; background-color: white;"></a>
             <!-- maybe a link to a profile page or something? -->
           </li>
 
@@ -62,7 +62,7 @@
 
         <!-- Get name for welcome message from backend -->
         <script>
-          fetch('http://localhost:8420/db/read/name', {
+          fetch('http://localhost:8420/session/name', {
             method: 'GET',
             credentials: 'include'
           })
@@ -82,75 +82,110 @@
         </p>
 
 
-        <form>
+        <form id="entry">
           <div class="form-group">
-            <label for="validationCustom05">Zipcode</label>
-            <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+            <label for="zip">Zipcode</label>
+            <input type="text" class="form-control" id="zip" placeholder="Zip" required>
             <div class="invalid-feedback">
               Please provide a valid zip.
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Household Income</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option selected>Average</option>
-              <option>Less than $10,000</option>
-              <option>$10,000 to $19,000</option>
-              <option>$20,000 to $29,000</option>
-              <option>$30,000 to $39,000</option>
-              <option>$40,000 to $49,000</option>
-              <option>$50,000 to $59,000</option>
-              <option>$60,000 to $79,000</option>
-              <option>$80,000 to $99,000</option>
-              <option>$100,000 to $119,000</option>
-              <option>$120,000 or more</option>
+            <label for="income">Household Income</label>
+            <select class="form-control" id="income">
+              <option value="1" selected>Average</option>
+              <option value="2">Less than $10,000</option>
+              <option value="3">$10,000 to $19,000</option>
+              <option value="4">$20,000 to $29,000</option>
+              <option value="5">$30,000 to $39,000</option>
+              <option value="6">$40,000 to $49,000</option>
+              <option value="7">$50,000 to $59,000</option>
+              <option value="8">$60,000 to $79,000</option>
+              <option value="9">$80,000 to $99,000</option>
+              <option value="10">$100,000 to $119,000</option>
+              <option value="11">$120,000 or more</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Household Size</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option selected="">Average</option>
-              <option>1 person</option>
-              <option>2 people</option>
-              <option>3 people</option>
-              <option>4 people</option>
-              <option>5 or more people</option>
+            <label for="size">Household Size</label>
+            <select class="form-control" id="size">
+              <option value="0" selected="">Average</option>
+              <option value="1">1 person</option>
+              <option value="2">2 people</option>
+              <option value="3">3 people</option>
+              <option value="4">4 people</option>
+              <option value="5">5 or more people</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="validationCustom05">Number of miles your car traveled last year</label>
-            <input type="integer" class="form-control" id="validationCustom05" placeholder="0" required>
+            <label for="miles">Number of miles your car traveled last year</label>
+            <input type="integer" class="form-control" id="miles" placeholder="0" required>
             <div class="invalid-feedback">
               Please provide a valid number.
             </div>
           </div>
           <div class="form-group">
-            <label for="validationCustom05">Your vehicle's fuel efficiency in miles per gallon</label>
-            <input type="integer" class="form-control" id="validationCustom05" placeholder="0" required>
+            <label for="mpg">Your vehicle's fuel efficiency in miles per gallon</label>
+            <input type="integer" class="form-control" id="mpg" placeholder="0" required>
             <div class="invalid-feedback">
               Please provide a valid number.
             </div>
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Fuel type</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option selected>Select a fuel type</option>
-              <option>Gasoline</option>
-              <option>Diesel</option>
+            <label for="type">Fuel type</label>
+            <select class="form-control" id="type">
+              <option value="0" selected>Select a fuel type</option>
+              <option value="0">Gasoline</option>
+              <option value="1">Diesel</option>
             </select>
           </div>
 
           <div class="form-group" style="padding-top: 20px;">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary"
+              <button type="submit" class="btn btn-primary" id="formsubmit"
                 style="padding-left: 60px; padding-right: 60px;">Submit</button>
             </div>
           </div>
 
         </form>
-        
+        <!-- <button onclick="myFunction()">Try it</button>
+        <p id="demo"></p> -->
+        <script>
+          document.getElementById("formsubmit").onclick = function () {
+            let data = {
+              zip: document.getElementById("zip").value,
+              income: document.getElementById("income").value,
+              size: document.getElementById("size").value,
+              miles: document.getElementById("miles").value,
+              mpg: document.getElementById("mpg").value,
+              type: document.getElementById("type").value
+            };
+
+            let url = new URL('http://localhost:8420/coolclimate');
+            url.search = new URLSearchParams(data).toString();
+
+            fetch(url, {
+              method: 'GET',
+              credentials: 'include'
+            })
+              .then(resp => resp.json())
+              .then(res => {
+              });
+          };
+        </script>
+        <!-- <script>
+            function myFunction() {
+              var x = document.getElementById("frm1");
+              var text = "";
+              var i;
+              for (i = 0; i < x.length ;i++) {
+                text += x.elements[i].value + "<br>";
+              }
+              document.getElementById("demo").innerHTML = text;
+            }
+            </script> -->
 
 
       </div>
@@ -174,13 +209,13 @@
           <p id="calinfo">Triangulating quantum fluctuations...</p>
           <script>
             fetch('http://localhost:8420/calendar', {
-            method: 'GET',
-            credentials: 'include'
-          })
-            .then(resp => resp.json())
-            .then(res => {
-              document.getElementById('calinfo').innerHTML = `If you leave at around <b style="color: crimson;">${res.leaveTime}</b>, you'll arrive at your event <b style="color: blue;">"${res.title}"</b> on time via walking!`;
-            });
+              method: 'GET',
+              credentials: 'include'
+            })
+              .then(resp => resp.json())
+              .then(res => {
+                document.getElementById('calinfo').innerHTML = `If you leave at around <b style="color: crimson;">${res.leaveTime}</b>, you'll arrive at your event <b style="color: blue;">"${res.title}"</b> on time via walking!`;
+              });
           </script>
         </div>
 
@@ -192,12 +227,12 @@
   </div>
 
 
-
-
+  <!-- Import AJAX support -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <!-- Bootstrap core JavaScript -->
   <!-- <script src="vendor/jquery/jquery.slim.min.js"></script> -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script type="text/javascript" src="./node_modules/jquery-serializejson/jquery.serializejson.js"></script>
 </body>
 
 </html>

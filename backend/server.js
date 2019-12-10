@@ -64,22 +64,20 @@ const googRoute = require('./routes/google_oauth');
 const coolRoute = require('./routes/coolclimate_api');
 const databaseRoute = require('./routes/database');
 const googCalendarRoute = require('./routes/goog_calendar_api');
+const sessionRoute = require('./routes/session');
 
 app.use('/nrel', nrelRoute);
 app.use('/google_oauth', googRoute);
 app.use('/coolclimate', coolRoute);
 app.use('/calendar', googCalendarRoute);
 app.use('/db', databaseRoute);
+app.use('/session', sessionRoute);
 
-app.get('/', (req, res, next) => {
-    if (req.session.email) {
-        res.send(`Email in session: ${req.session.email}`);
-    } else {
-        let error = new Error('Not found');
-        error.status = 404;
-        next(error);
-    }
-});
+// app.post('/', (req, res, next) => {
+//     Object.keys(req.query).forEach(q => {
+//         console.log(req.query[q]);
+//     });
+// });
 
 // Error handling and catch-all route 
 // app.use((req, res, next) => {

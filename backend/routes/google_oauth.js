@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 const rp = require("request-promise");
+const mongoose = require("mongoose");
+const UserData = require('../models/user_data');
 
 // Using this for app config variables
 require('dotenv').config();
@@ -77,13 +79,36 @@ router.get("/", (req, res) => {
                     rp(options)
                         .then(response => {
                             // retrieved profile info
-                            let ret = {
-                                name: response.names[0].displayNameLastFirst,
-                                email: response.emailAddresses[0].value
-                            };
-                            req.session.name = response.names[0].displayNameLastFirst;
-                            req.session.email = response.emailAddresses[0].value;
-                            console.log(req.session.email);
+                            let name = response.names[0].displayNameLastFirst;
+                            let email = response.emailAddresses[0].value;
+
+                            // store through to DB
+                            // First check if user is in DB already or not
+                            UserData.findOne({ 'email': email }).exec()
+                                .then(doc => {
+                                    if (doc) {
+                                        console.log(`User ${doc.name} already in DB. Storing info to session.`);
+                                        req.session.name = doc.name;
+                                        req.session.email = doc.email;
+                                        req.session.direct_emissions = doc.direct_emissions;
+                                        req.session.indirect_emissions = doc.indirect_emissions;
+                                    } else {
+                                        console.log(`User not found. Sending data to DB.`);
+                                        let data = new UserData({
+                                            _id: new mongoose.Types.ObjectId(),
+                                            email: email,
+                                            name: name,
+                                            direct_emissions: 0,
+                                            indirect_emissions: 0
+                                        });
+                                        data.save().then(result => {
+                                            console.log(`Data saved in DB`);
+                                        }).catch(err => console.error(err));
+                                    }
+
+                                })
+                                .catch(err => console.error(err));
+
                             res.redirect(process.env.FRONT_END_URL);
                         })
                         .catch(err => {
