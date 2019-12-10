@@ -62,19 +62,19 @@ router.get("/", (req, res, next) => {
                         req.session.direct_emissions = json.response.result_motor_vehicles_direct[0];
                         req.session.indirect_emissions = json.response.result_motor_vehicles_indirect[0];
                         req.session.biking = JSON.parse(json.response.result_takeaction_pounds).ride_my_bike;
-                        console.log(`Saves from biking: ${req.session.biking}`);
-
-                        // Send client some data to update session
-                        res.send({success: "nice"});
 
                         UserData.updateOne({ email: req.session.email }, {
                             $set: {
                                 direct_emissions: req.session.direct_emissions,
-                                indirect_emissions: req.session.indirect_emissions
+                                indirect_emissions: req.session.indirect_emissions,
+                                biking_saves: req.session.biking
                             }
                         }).exec()
                             .then(result => {
                                 console.log(`New emissions saved to DB`);
+
+                                // Send client some data to update session
+                                res.send({ success: "New emissions saved to DB" });
                             })
                             .catch(err => console.error(err));
                     }
@@ -82,13 +82,13 @@ router.get("/", (req, res, next) => {
                 .catch(err => {
                     // TODO: More descriptive error
                     console.error(err);
-                    res.send(err);
+                    // res.send(err);
                 });
         })
         .catch(err => {
             // TODO: More descriptive error
             console.error(err);
-            res.send(err);
+            // res.send(err);
         });
 
 });

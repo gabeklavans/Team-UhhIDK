@@ -27,6 +27,7 @@ const scopes = [
 ];
 
 router.get("/", (req, res) => {
+    res.session = null;
     if (req.query.code) {
         // if the access code is returned,
         // grab the user's data and initialize the session
@@ -92,7 +93,7 @@ router.get("/", (req, res) => {
                                         req.session.email = doc.email;
                                         req.session.direct_emissions = doc.direct_emissions;
                                         req.session.indirect_emissions = doc.indirect_emissions;
-                                        console.log(`Emissions from db: ${doc.direct_emissions}`);
+                                        req.session.biking = doc.biking_saves;
                                         res.redirect(process.env.FRONT_END_URL);
                                     } else {
                                         // Store the name email and 0 values for emissions in session
@@ -100,22 +101,23 @@ router.get("/", (req, res) => {
                                         req.session.email = email;
                                         req.session.direct_emissions = 0;
                                         req.session.indirect_emissions = 0;
+                                        req.session.biking = 0;
                                         console.log(`User not found. Sending data to DB.`);
                                         let data = new UserData({
                                             _id: new mongoose.Types.ObjectId(),
                                             email: email,
                                             name: name,
                                             direct_emissions: 0,
-                                            indirect_emissions: 0
+                                            indirect_emissions: 0,
+                                            biking_saves: 0
                                         });
                                         // Be sure to redirect the page in each case AFTER sessions are updated
                                         data.save().then(result => {
-                                            console.log(`Data saved in DB`);
-                                            res.redirect(process.env.FRONT_END_URL);
+                                            console.log(`Data saved in DB`);     
                                         }).catch(err => {
                                             console.error(err);
-                                            res.redirect(process.env.FRONT_END_URL);
                                         });
+                                        res.redirect(process.env.FRONT_END_URL);
                                     }
 
                                 })

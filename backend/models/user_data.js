@@ -10,7 +10,8 @@ var UserDataSchema = new Schema ({
     name: String,
     // Stores a list of years mapped to the emssisions for that year
 	direct_emissions: Number,
-	indirect_emissions: Number 
+	indirect_emissions: Number,
+	biking_saves: Number
 });
 
 // Compile model from schema

@@ -41,30 +41,37 @@ router.post("/create", (req, res, next) => {
         });
 });
 
-router.get("/read/", (req, res, next) => { 
+router.get("/read/", (req, res, next) => {
     UserData.findOne({ 'email': req.session.email }).exec()
         .then(doc => {
             if (doc) {
-                console.log(doc);
-                res.send(doc);
+                req.session.direct_emissions = doc.direct_emissions;
+                req.session.indirect_emissions = doc.indirect_emissions;
+                req.session.biking = doc.biking_saves;
+                res.send({
+                    direct: doc.direct_emissions,
+                    indirect: doc.indirect_emissions,
+                    biking: doc.biking_saves
+                });
             } else {
-                console.log(`User not found`);
-                res.send({msg: `User ${req.session.email} not found`});
+                res.send({
+                    error: `Nothin in DB`
+                });
+                console.log("No data in DB");
             }
-
         })
         .catch(err => console.error(err));
 });
 
-router.get("/read/all", (req, res, next) => { 
+router.get("/read/all", (req, res, next) => {
     UserData.find().exec()
         .then(doc => {
             if (doc) {
-                console.log(doc);
+                // console.log(doc);
                 res.send(doc);
             } else {
                 console.log(`User not found`);
-                res.send({msg: `User ${req.session.email} not found`});
+                res.send({ msg: `User ${req.session.email} not found` });
             }
 
         })
@@ -78,9 +85,18 @@ router.patch("/update/", (req, res, next) => {
         updateOperations[op] = req.query[op];
     });
     // Update values found in update operatoins
-    UserData.update({ email: req.session.email}, { $set: updateOperations}).exec()
+    UserData.update({ email: req.session.email }, { $set: updateOperations }).exec()
         .then(result => {
             console.log(result);
+            res.send(result);
+        })
+        .catch(err => console.error(err));
+});
+
+router.delete("/delete/:email", (req, res, next) => {
+    UserData.findOneAndDelete({ email: req.params.email }).exec()
+        .then(result => {
+            // console.log(result);
             res.send(result);
         })
         .catch(err => console.error(err));

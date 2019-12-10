@@ -101,7 +101,7 @@ router.get("/", (req, res, next) => {
                                     "id": "Departure search",
                                     "departure_location_id": "Home",
                                     "arrival_location_ids": [toLocation.id],
-                                    "transportation": { "type": "walking" },
+                                    "transportation": { "type": "cycling" },
                                     "departure_time": curDate,
                                     "properties": ["travel_time"]
                                 }]
@@ -144,9 +144,9 @@ router.get("/", (req, res, next) => {
         .catch(err => {
             // If the token is expired, display this error page.
             req.session = null;
-            res.send(
-                "<h2>Credentials expired. Please Sign in again.</h2>\n<button type=\"submit\" onclick=\"location.href='http://localhost:3000';\" class=\"btn btn-primary\" style=\"padding-left: 60px; padding-right: 60px; \" >Reutrn to home page</button>"
-            );
+            res.send({
+                msg :"<h2>Credentials expired. Please Sign in again.</h2>\n<button type=\"submit\" onclick=\"location.href='http://localhost:3000';\" class=\"btn btn-primary\" style=\"padding-left: 60px; padding-right: 60px; \" >Reutrn to home page</button>"
+            });
         });
 });
 

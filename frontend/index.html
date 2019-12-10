@@ -143,14 +143,13 @@
             </select>
           </div>
 
-          <div class="form-group" style="padding-top: 20px;">
+        </form>
+        <div class="form-group" style="padding-top: 20px;">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary" id="formsubmit"
+              <button class="btn btn-primary" id="formsubmit"
                 style="padding-left: 60px; padding-right: 60px;">Submit</button>
             </div>
           </div>
-
-        </form>
         <!-- <button onclick="myFunction()">Try it</button>
         <p id="demo"></p> -->
         <script>
@@ -173,22 +172,10 @@
             })
               .then(resp => resp.json())
               .then(res => {
-                location.reload()
+                location.reload();
               });
           };
         </script>
-        <!-- <script>
-            function myFunction() {
-              var x = document.getElementById("frm1");
-              var text = "";
-              var i;
-              for (i = 0; i < x.length ;i++) {
-                text += x.elements[i].value + "<br>";
-              }
-              document.getElementById("demo").innerHTML = text;
-            }
-            </script> -->
-
 
       </div>
       <div class="col">
@@ -204,6 +191,10 @@
             })
               .then(resp => resp.json())
               .then(res => {
+                if (res.biking){
+                  document.getElementById('bikingSave').innerHTML = `If you biked to work instead of driving next year, you could save ${res.biking} tons of carbon emissions!`;
+                }
+                  
                 let direct;
                 let indirect
 
@@ -267,8 +258,9 @@
         </div>
 
         <div class="row" style="padding-top: 40px">
-          <h5 style="font-size: x-large;">You can save on your carbon emissions by walking instead of driving!</h5>
+          <h5 style="font-size: x-large;">You can save on your carbon emissions by biking instead of driving!</h5>
           <p id="calinfo">Triangulating quantum fluctuations...</p>
+          <p id="bikingSave">Update your emissions to get your potential savings... :)</p>
           <script>
             fetch('http://localhost:8420/calendar', {
               method: 'GET',
@@ -276,7 +268,7 @@
             })
               .then(resp => resp.json())
               .then(res => {
-                document.getElementById('calinfo').innerHTML = `If you leave at around <b style="color: crimson;">${res.leaveTime}</b>, you'll arrive at your event <b style="color: blue;">"${res.title}"</b> on time via walking!`;
+                document.getElementById('calinfo').innerHTML = `If you leave at around <b style="color: crimson;">${res.leaveTime}</b>, you'll arrive at your event <b style="color: blue;">"${res.title}"</b> on time via biking!`;
               });
           </script>
         </div>
