@@ -63,10 +63,12 @@ const nrelRoute = require('./routes/nrel_api');
 const googRoute = require('./routes/google_oauth');
 const coolRoute = require('./routes/coolclimate_api');
 const databaseRoute = require('./routes/database');
+const googCalendarRoute = require('./routes/goog_calendar_api');
 
 app.use('/nrel', nrelRoute);
 app.use('/google_oauth', googRoute);
 app.use('/coolclimate', coolRoute);
+app.use('/calendar', googCalendarRoute);
 app.use('/db', databaseRoute);
 
 app.get('/', (req, res, next) => {

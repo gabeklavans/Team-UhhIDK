@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserDataSchema = new Schema ({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: Schema.Types.ObjectId,
 	email: String,
     name: String,
     // Stores a list of years mapped to the emssisions for that year
-	direct_emissions: {type: Map, of: Number},
-	indirect_emissions: {type: Map, of: Number} 
+	direct_emissions: Number,
+	indirect_emissions: Number 
 });
 
 // Compile model from schema
