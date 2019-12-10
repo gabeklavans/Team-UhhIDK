@@ -45,17 +45,9 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: white; font-size: 20px;">My Profile</a>
+            <a class="nav-link" href="http://localhost:8420/google_oauth" style="color: white; font-size: 20px;">Sign In <img class="rounded" src="http://pluspng.com/img-png/google-logo-png-open-2000.png" style="width:25px;height:25px; background-color: white;"></a>
             <!-- maybe a link to a profile page or something? -->
           </li>
-          <li class="nav-item">
-              <a type="submit" class="btn btn-primary" id="signin">Sign In <img src="http://pluspng.com/img-png/google-logo-png-open-2000.png" style="width:20px;height:20px;"></a>
-          </li>
-          <script type="text/javascript">
-            document.getElementById("signin").onclick = function () {
-              location.href = "http://localhost:8420/google_oauth";
-            };
-          </script>
 
         </ul>
       </div>
@@ -153,14 +145,12 @@
           <div class="form-group" style="padding-top: 20px;">
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-primary"
-                style="padding-left: 60px; padding-right: 60px; ">Submit</button>
+                style="padding-left: 60px; padding-right: 60px;">Submit</button>
             </div>
           </div>
 
-
-
         </form>
-
+        
 
 
       </div>
@@ -180,10 +170,18 @@
         </div>
 
         <div class="row" style="padding-top: 40px">
-          <p>
-
-            Google Maps thing or whatever the next API is gonna be
-          </p>
+          <h5 style="font-size: x-large;">You can save on your carbon emissions by walking instead of driving!</h5>
+          <p id="calinfo">Triangulating quantum fluctuations...</p>
+          <script>
+            fetch('http://localhost:8420/calendar', {
+            method: 'GET',
+            credentials: 'include'
+          })
+            .then(resp => resp.json())
+            .then(res => {
+              document.getElementById('calinfo').innerHTML = `If you leave at around <b style="color: crimson;">${res.leaveTime}</b>, you'll arrive at your event <b style="color: blue;">"${res.title}"</b> on time via walking!`;
+            });
+          </script>
         </div>
 
 

@@ -38,29 +38,29 @@ router.post("/create", (req, res, next) => {
         });
 });
 
-router.get("/read/:email", (req, res, next) => { 
-    UserData.findOne({ 'email': req.params.email }).exec()
+router.get("/read/", (req, res, next) => { 
+    UserData.findOne({ 'email': req.session.email }).exec()
         .then(doc => {
             if (doc) {
                 console.log(doc);
                 res.send(doc);
             } else {
                 console.log(`User not found`);
-                res.send({msg: `User ${req.query.email} not found`});
+                res.send({msg: `User ${req.session.email} not found`});
             }
 
         })
         .catch(err => console.error(err));
 });
 
-router.patch("/update/:email", (req, res, next) => {
+router.patch("/update/", (req, res, next) => {
     // Loop through every item in queries and add them to the update list
     let updateOperations = {};
     Object.keys(req.query).forEach(op => {
         updateOperations[op] = req.query[op];
     });
     // Update values found in update operatoins
-    UserData.update({ email: req.params.email}, { $set: updateOperations}).exec()
+    UserData.update({ email: req.session.email}, { $set: updateOperations}).exec()
         .then(result => {
             console.log(result);
             res.send(result);

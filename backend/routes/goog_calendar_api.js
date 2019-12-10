@@ -127,7 +127,7 @@ router.get("/", (req, res, next) => {
                             res.send({
                                 title: calInfo.title,
                                 location: calInfo.location,
-                                leaveTime: moment(calInfo.startTime).subtract(travelTime, 'seconds').subtract(5, 'hours'),
+                                leaveTime: moment(calInfo.startTime).subtract(travelTime, 'seconds').format("h:mm A on dddd, M/D"),
                                 startTime: moment(calInfo.startTime).subtract(5, 'hours')
                             });
                         })
