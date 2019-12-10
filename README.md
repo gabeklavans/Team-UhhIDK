@@ -1,7 +1,7 @@
 # Team-UhhIDK
 CS 411 Fall 2019 project group 
 
-Maybe you'll drive a little less!
+Our app, My Yearly Footprint, will help you calculate your yearly greenhouse gas emissions from driving and suggest more eco-friendly ways to travel. Maybe you'll drive a little less!
 
 ## Instructions for testing
 
