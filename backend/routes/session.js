@@ -7,6 +7,7 @@ const UserData = require('../models/user_data');
 router.get("/emissions", (req, res, next) => {
     console.log(`Biking emits ${req.session.biking}`);
     console.log(`Direct emits ${req.session.direct_emissions}`);
+    console.log(`Session email: ${req.session.email}`);
 
     if (req.session.direct_emissions && req.session.direct_emissions > 0) {
         res.send({

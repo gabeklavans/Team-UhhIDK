@@ -41,7 +41,29 @@ router.post("/create", (req, res, next) => {
         });
 });
 
-router.get("/read/", (req, res, next) => {
+router.get("/emissions", (req, res, next) => {
+    UserData.findOne({ 'email': req.session.email }).exec()
+        .then(doc => {
+            if (doc) {
+                req.session.direct_emissions = doc.direct_emissions;
+                req.session.indirect_emissions = doc.indirect_emissions;
+                req.session.biking = doc.biking_saves;
+                res.send({
+                    direct: doc.direct_emissions,
+                    indirect: doc.indirect_emissions,
+                    biking: doc.biking_saves
+                });
+            } else {
+                res.send({
+                    error: `Nothin in DB`
+                });
+                console.log("No data in DB");
+            }
+        })
+        .catch(err => console.error(err));
+});
+
+router.get("/name", (req, res, next) => {
     UserData.findOne({ 'email': req.session.email }).exec()
         .then(doc => {
             if (doc) {

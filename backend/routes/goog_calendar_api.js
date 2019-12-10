@@ -143,9 +143,9 @@ router.get("/", (req, res, next) => {
         })
         .catch(err => {
             // If the token is expired, display this error page.
-            req.session = null;
             res.send({
-                msg :"<h2>Credentials expired. Please Sign in again.</h2>\n<button type=\"submit\" onclick=\"location.href='http://localhost:3000';\" class=\"btn btn-primary\" style=\"padding-left: 60px; padding-right: 60px; \" >Reutrn to home page</button>"
+                // error :"<h2>Credentials expired. Please Sign in again.</h2>\n<button type=\"submit\" onclick=\"location.href='http://localhost:3000';\" class=\"btn btn-primary\" style=\"padding-left: 60px; padding-right: 60px; \" >Reutrn to home page</button>"
+                error: "No Google Calendar info :("
             });
         });
 });
